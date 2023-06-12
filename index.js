@@ -95,7 +95,6 @@ async function run() {
       res.send(result);
     });
 
-
     app.get("/users/admin/:email", verifyJWT, async (req, res) => {
       const email = req.params.email;
       if (req.decoded.email !== email) {
@@ -144,7 +143,6 @@ async function run() {
       res.send(result);
     });
 
-    
     app.get("/menu", async (req, res) => {
       const result = await menuCollection.find().toArray();
       res.send(result);
@@ -163,7 +161,6 @@ async function run() {
       res.send(result);
     });
 
-   
     app.post("/create-payment-intent", verifyJWT, async (req, res) => {
       const { price } = req.body;
       const amount = parseInt(price * 100);
@@ -177,26 +174,24 @@ async function run() {
       });
     });
 
-
     app.post("/payments", verifyJWT, async (req, res) => {
       const payment = req.body;
       const insertResult = await paymentCollection.insertOne(payment);
-    
-      const itemIds = payment.cartItems; // Assuming cartItems is an array of IDs to delete
+      const itemIds = payment.cartItems;
       const query = {
         _id: { $in: itemIds.map((id) => new ObjectId(id)) },
       };
-    
       const deleteResult = await cartCollection.deleteOne(query);
       res.send({ insertResult, deleteResult });
     });
 
     app.get("/payments", async (req, res) => {
-      const payments = await paymentCollection.find().sort({ date: -1 }).toArray();
+      const payments = await paymentCollection
+        .find()
+        .sort({ date: -1 })
+        .toArray();
       res.send(payments);
     });
-
-    
 
     //popular classes
     app.get("/classes", async (req, res) => {
