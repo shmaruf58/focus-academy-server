@@ -57,7 +57,7 @@ async function run() {
     const cartCollection = client.db("focus").collection("carts");
     const paymentCollection = client.db("focus").collection("payments");
 
-    //jwt
+    //jwt token post
 
     app.post("/jwt", (req, res) => {
       const user = req.body;
