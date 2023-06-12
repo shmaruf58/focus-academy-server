@@ -116,7 +116,6 @@ async function run() {
           role: "admin",
         },
       };
-
       const result = await usersCollection.updateOne(filter, updateDoc);
       res.send(result);
     });
