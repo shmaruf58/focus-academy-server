@@ -122,11 +122,9 @@ async function run() {
 
     app.get("/users/insta/:email", verifyJWT, async (req, res) => {
       const email = req.params.email;
-
       if (req.decoded.email !== email) {
         res.send({ insta: false });
       }
-
       const query = { email: email };
       const user = await usersCollection.findOne(query);
       const result = { insta: user?.role === "insta" };
