@@ -86,21 +86,16 @@ async function run() {
 
     app.post("/users", async (req, res) => {
       const user = req.body;
-      
       const query = { email: user.email };
       const existingUser = await usersCollection.findOne(query);
-
       if (existingUser) {
         return res.send({ message: "user already exists" });
       }
-
       const result = await usersCollection.insertOne(user);
       res.send(result);
     });
 
-    // security layer: verifyJWT
-    // email same
-    // check admin
+
     app.get("/users/admin/:email", verifyJWT, async (req, res) => {
       const email = req.params.email;
 
