@@ -140,12 +140,11 @@ async function run() {
           role: "insta",
         },
       };
-
       const result = await usersCollection.updateOne(filter, updateDoc);
       res.send(result);
     });
 
-    // menu related apis
+    
     app.get("/menu", async (req, res) => {
       const result = await menuCollection.find().toArray();
       res.send(result);
@@ -164,7 +163,7 @@ async function run() {
       res.send(result);
     });
 
-    // create payment intent
+   
     app.post("/create-payment-intent", verifyJWT, async (req, res) => {
       const { price } = req.body;
       const amount = parseInt(price * 100);
